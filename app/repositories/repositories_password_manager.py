@@ -1,5 +1,27 @@
-from app.models.password import Password
+from app.models.models_password_manager import User, Password
 from uuid import uuid4
+
+class UserRepository:
+    def __init__(self, db):
+        self.db = db
+
+    def create_user(self, username, email, password_hash):
+        user = User(
+            user_id=str(uuid4()),
+            username=username,
+            email=email,
+            password_hash=password_hash
+        )
+        self.db.add(user)
+        self.db.commit()
+        self.db.refresh(user)
+        return user
+
+    def get_user_by_email(self, email):
+        return self.db.query(User).filter(User.email == email).first()
+    
+    def get_user_by_username(self, username):
+        return self.db.query(User).filter(User.username == username).first()
 
 class PasswordRepository:
     def __init__(self, db):

@@ -1,6 +1,5 @@
 from app.db.session import SessionLocal, Base, engine
-from app.repositories.user_repository import UserRepository
-from app.repositories.password_repository import PasswordRepository
+from app.repositories.repositories_password_manager import UserRepository, PasswordRepository
 from app.services.user_service import UserService
 from app.services.password_service import PasswordService
 

@@ -1,21 +1,16 @@
 from app.db.session import SessionLocal, Base, engine
 from app.repositories.repositories_password_manager import UserRepository, PasswordRepository
-from app.services.user_service import UserService
-from app.services.password_service import PasswordService
+from app.factory import service_factory
 
-# Criando instâncias de repositórios e serviços
 db = SessionLocal()
-
-# Criar o banco de dados (se não existir) e as tabelas definidas no modelo
 Base.metadata.create_all(bind=engine)
 
 user_repo = UserRepository(db)
-user_service = UserService(user_repo)
+user_service = service_factory.UserService(user_repo)
 
 password_repo = PasswordRepository(db)
-password_service = PasswordService(password_repo)
+password_service = service_factory.PasswordService(password_repo)
 
-# Exemplo: Criar usuário
 try:
     new_user = user_service.register_user("johndoe", "johndoe@example.com", "hashed_password")
     print(f"User created: {new_user.username}")
@@ -25,7 +20,6 @@ except ValueError as e:
 # User_Test = user_service.get_user_by_username("johndoe")
 # print(User_Test.email)
 
-# Exemplo: Adicionar senha
 try:
     new_password = password_service.add_password(
         user_id=new_user.user_id,

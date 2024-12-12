@@ -23,17 +23,23 @@ try:
 except ValueError as e:
     print(e)
 
-# Exemplo: Adicionar senha
-new_password = password_service.add_password(
-    user_id=new_user.user_id,
-    site_url="https://example.com",
-    site_alias="Example",
-    username_login="johndoe",
-    username_email="johndoe@example.com",
-    username_phone="1234567890",
-    password="secure_password",
-    key_recovery="recovery_key",
-    notes="My main account"
-)
+# User_Test = user_service.get_user_by_username("johndoe")
+# print(User_Test.email)
 
-print(f"Password created for site: {new_password.site_alias}")
+# Exemplo: Adicionar senha
+try:
+    new_password = password_service.add_password(
+        user_id=new_user.user_id,
+        site_url="https://example.com",
+        site_alias="Example",
+        username_login="johndoe",
+        username_email="johndoe@example.com",
+        username_phone="1234567890",
+        password="secure_password",
+        key_recovery="recovery_key",
+        notes="My main account"
+    )
+
+    print(f"Password created for site: {new_password.site_alias}")
+except:
+    print('Usuário Existente')

@@ -7,3 +7,6 @@ class UserService:
         if existing_user:
             raise ValueError("User with this email already exists.")
         return self.user_repo.create_user(username, email, password_hash)
+
+    def get_user_by_username(self, username):
+        return self.user_repo.get_user_by_username(username)

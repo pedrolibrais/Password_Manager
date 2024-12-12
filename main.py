@@ -1,4 +1,4 @@
-from app.db.session import SessionLocal
+from app.db.session import SessionLocal, Base, engine
 from app.repositories.user_repository import UserRepository
 from app.repositories.password_repository import PasswordRepository
 from app.services.user_service import UserService
@@ -6,6 +6,9 @@ from app.services.password_service import PasswordService
 
 # Criando instâncias de repositórios e serviços
 db = SessionLocal()
+
+# Criar o banco de dados (se não existir) e as tabelas definidas no modelo
+Base.metadata.create_all(bind=engine)
 
 user_repo = UserRepository(db)
 user_service = UserService(user_repo)
